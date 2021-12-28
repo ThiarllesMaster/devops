@@ -1,0 +1,11 @@
+---
+- name: Update the web servers
+  hosts: 127.0.0.1
+
+  tasks:
+   - name: Who I am ?
+     become_user: "root"
+     shell: whoami
+     register: command_output
+   - debug:
+      var: command_output.stdout_lines

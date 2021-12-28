@@ -1,0 +1,19 @@
+---
+- name: Executing the task learn 
+  hosts: 127.0.0.1
+
+  tasks:
+   - yum: 
+      name: "{{item}}"
+      state: present
+     loop:
+      - httpd
+      - memcached
+     tags: 
+      - packages
+
+   - template:
+      src: file1.txt
+      dest: file2.txt
+      tags: 
+       - configuration       

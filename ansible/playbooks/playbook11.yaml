@@ -1,0 +1,12 @@
+---
+- name: Update the web servers
+  hosts: 127.0.0.1
+  vars_files:   
+   - vars/variables.yaml
+  tasks:
+   - name: Determine the files which will be copied 
+     debug: 
+      msg: "{{ local_path }}/{{ item.path }}"
+     with_filetree: '{{ local_path }}' 
+     
+#https://linuxbuff.wordpress.com/2020/05/07/howto-use-ansible-to-selectively-use-file-and-folder-names/

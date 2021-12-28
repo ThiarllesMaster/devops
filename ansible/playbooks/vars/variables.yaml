@@ -1,0 +1,8 @@
+---
+name_nginx: nginx
+folder: folder
+source: source
+debugging: false
+owner: teste
+pode: "true"
+local_path: /web

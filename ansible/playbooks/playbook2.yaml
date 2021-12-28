@@ -1,0 +1,8 @@
+---
+- name: Update the web servers
+  hosts: 127.0.0.1
+  
+  tasks:
+   - name: create the file 
+     shell: touch lula.txt 
+  

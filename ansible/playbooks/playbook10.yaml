@@ -1,0 +1,16 @@
+---
+- name: Update the web servers
+  hosts: 127.0.0.1
+  vars_files:   
+   - vars/variables.yaml
+  tasks:
+   - name: Handle the error
+     block:
+     - name: Print a message
+       become: yes
+       file:
+         path: ./web/{{ item.path }}
+         state: directory
+         mode: '{{ item.mode }}'
+       with_filetree: web/  
+       when: item.state == 'directory'

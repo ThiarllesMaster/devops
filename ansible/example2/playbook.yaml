@@ -1,0 +1,18 @@
+---
+- name: Update the web servers
+  hosts: 127.0.0.1 
+  vars: 
+   name_nginx: nginx
+   connection: local
+
+  tasks: 
+   - name: install the nginx latest version 
+     yum: 
+      name: "{{ name_nginx }}"
+      state: latest 
+   - name: start nginx 
+     service: 
+      name: nginx
+      state: started
+   
+  

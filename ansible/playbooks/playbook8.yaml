@@ -1,0 +1,11 @@
+---
+- name: Update the web servers
+  hosts: 127.0.0.1
+  vars_files:   
+   - vars/variables.yaml
+  tasks:
+   - name: Handle the error
+     block:
+     - name: Print a message
+       ansible.builtin.debug:
+         msg: 'I execute normally'

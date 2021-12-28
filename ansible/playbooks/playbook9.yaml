@@ -1,0 +1,15 @@
+---
+- name: Testing the block command
+  hosts: 127.0.0.1
+  vars_files:   
+   - vars/variables.yaml
+  tasks:
+     - name: First Task 
+       ansible.builtin.debug:
+        msg: "First Task"
+
+     - name: Second task 
+       ansible.builtin.debug:
+        msg: "Second task"
+
+       when: pode == "true"

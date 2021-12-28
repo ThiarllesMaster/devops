@@ -1,0 +1,3 @@
+FROM nginx:latest 
+ENV HOME=/home
+COPY file.txt ${HOME}

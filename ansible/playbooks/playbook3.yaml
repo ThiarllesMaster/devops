@@ -1,0 +1,19 @@
+---
+- name: Executing the task template
+  hosts: 127.0.0.1
+  
+  tasks:
+   - name: testing the module template - [003]
+     template: 
+      src: file1.txt
+      dest: file2.txt
+     tags: 
+      - lesson1 
+   - name: testing the module template - [004]
+     template: 
+      src: file3.txt
+      dest: file4.txt
+     tags: 
+      - lesson2      
+
+  

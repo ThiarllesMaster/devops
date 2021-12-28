@@ -1,0 +1,5 @@
+FROM nginx:latest
+WORKDIR /a
+WORKDIR /b 
+WORKDIR /c
+RUN pwd

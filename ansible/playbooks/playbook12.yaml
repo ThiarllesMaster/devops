@@ -1,0 +1,15 @@
+---
+- name: Update the web servers
+  hosts: 127.0.0.1
+
+  tasks:
+   - name: Print the itens  
+     debug: 
+      msg: "{{ item }}"
+     loop:
+      - Greice 
+      - Thiarlles
+      - Rafinha
+     
+
+#https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html

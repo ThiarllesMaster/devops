@@ -1,0 +1,46 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <!--Add files at assembly filtered -->
+    <files>
+        <file>
+            <source>${project.basedir}/src/main/config/config.properties</source>
+            <filtered>true</filtered>
+        </file>
+    </files>
+
+    <!--Add the directory (inside project) to base -->
+    <fileSets>
+        <fileSet>
+            <outputDirectory>.</outputDirectory>
+            <directory>${project.basedir}/src/main/resources</directory>
+        </fileSet>
+    </fileSets>
+
+    <!-- use of dependencies came from pom.xml -->
+    <dependencySets>
+        <dependencySet>
+            <!-- Not use the project base as dependency-->
+            <useProjectArtifact>false</useProjectArtifact>
+            <!--Where inside jar the dependency will be added -->
+            <outputDirectory>/log4j</outputDirectory>
+            <includes>
+                <!--groupId:artifactId -->
+                <include>log4j:log4j</include>
+            </includes>
+        </dependencySet>
+
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>/commons</outputDirectory>
+            <includes>
+                <include>commons-io:commons-io</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+</assembly>
