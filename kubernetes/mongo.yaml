@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:5.0
+        ports:
+        - containerPort: 27017
+        env: #Variáveis de ambiente do Mongo
+         - name: MONGO_INITDB_ROOT_USERNAME
+           valueFrom: 
+            secretKeyRef: 
+              name: mongo-secret #This name comes from secret (metadata -> name)
+              key: mongo-user # This is the key defined at secret 
+         - name: MONGO_INITDB_ROOT_PASSWORD
+           valueFrom: 
+            secretKeyRef: 
+              name: mongo-secret #This name comes from secret (metadata -> name)
+              key: mongo-password # This is the key defined at secret          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  selector:
+    app: mongo # This name is being referenced at (metadata -> labels -> app) above in the Deployment
+  ports:
+    - protocol: TCP
+      port: 27017 #Port which the service will be respond when called by other services
+      targetPort: 27017 #Container port of Deployment

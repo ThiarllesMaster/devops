@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+        image: nanajanashia/k8s-demo-app:v1.0
+        ports:
+        - containerPort: 3000
+        env: #The application connects to MongoDB through the environment variables
+        - name: USER_NAME
+          valueFrom: 
+            secretKeyRef: 
+              name: mongo-secret #This name comes from secret (metadata -> name)
+              key: mongo-user # This is the key defined at secret 
+
+        - name: USER_PWD
+          valueFrom: 
+            secretKeyRef: 
+              name: mongo-secret #This name comes from secret (metadata -> name)
+              key: mongo-password # This is the key defined at secret  
+        - name: DB_URL 
+          valueFrom:
+           configMapKeyRef: 
+            name: mongo-config # Value comes from mongo-config (metadata -> name)
+            key: mongo-url              
+         
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp-service
+spec:
+  type: NodePort #This is the definition of external service, or be: to the service to be called by one browser
+  selector:
+    app: webapp # This name is being referenced at (metadata -> labels -> app) above in the Deployment
+  ports:
+    - protocol: TCP
+      port: 3000 #Port which the service will be respond when called by other services
+      targetPort: 3000 #Container port of Deployment
+      nodePort: 30100 #The port which browser will access the Pod
